@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: teamspeak3-server-exporter
+  namespace: teamspeak
+spec:
+  ports:
+    - name: metrics
+      protocol: TCP
+      port: 9189
+      targetPort: 9189
+  selector:
+    app: ts3-exporter
+  clusterIP: 10.108.214.230
+  clusterIPs:
+    - 10.108.214.230
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster
