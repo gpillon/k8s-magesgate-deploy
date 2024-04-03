@@ -1,0 +1,25 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: factorio
+  namespace: factorio
+spec:
+  ports:
+    - protocol: UDP
+      port: 34197
+      targetPort: 34197
+      nodePort: 31147
+  selector:
+    app: factorio
+  clusterIP: 10.104.225.84
+  clusterIPs:
+    - 10.104.225.84
+  type: NodePort
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster
+status:
+  loadBalancer: {}
