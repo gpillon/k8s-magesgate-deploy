@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: magesgate-web
+  namespace: magesgate-com
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - host: "web.the.magesgate.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: magesgate-web
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - "web.the.magesgate.com"
+    secretName: magesgate-web-tls
