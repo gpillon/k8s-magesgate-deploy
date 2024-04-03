@@ -18,7 +18,7 @@ spec:
       volumes:
         - name: teamspeak-data
           persistentVolumeClaim:
-            claimName: teamspeak3-pvc
+            claimName: teamspeak3-data
       containers:
         - name: teamspeak3-server
           image: ertagh/teamspeak3-server:latest-box-predownloaded
