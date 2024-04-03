@@ -1,0 +1,38 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: teamspeak3-server-int
+  namespace: teamspeak
+spec:
+  ports:
+    - name: ts3
+      protocol: UDP
+      port: 9987
+      targetPort: 9987
+    - name: ts3-serverquery
+      protocol: TCP
+      port: 10011
+      targetPort: 10011
+    - name: ts3-filetransfer
+      protocol: TCP
+      port: 30033
+      targetPort: 30033
+    - name: ts3-dns
+      protocol: TCP
+      port: 41144
+      targetPort: 41144
+    - name: ts3-web-query
+      protocol: TCP
+      port: 10080
+      targetPort: 10080
+  selector:
+    app: teamspeak3
+  clusterIP: 10.96.143.97
+  clusterIPs:
+    - 10.96.143.97
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster
