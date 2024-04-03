@@ -1,0 +1,29 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: teamspeak3-server
+  namespace: teamspeak
+spec:
+  ports:
+    - name: ts3
+      protocol: UDP
+      port: 9987
+      targetPort: 9987
+      nodePort: 32155
+    - name: ts3-file-transfer
+      protocol: TCP
+      port: 30033
+      targetPort: 30033
+      nodePort: 30033
+  selector:
+    app: teamspeak3
+  clusterIP: 10.99.178.15
+  clusterIPs:
+    - 10.99.178.15
+  type: NodePort
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster
