@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: factorio
+  namespace: argo
+spec:
+  destination:
+    namespace: factorio
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: apps/teamspeak
+    repoURL: https://github.com/gpillon/k8s-magesgate-deploy.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
