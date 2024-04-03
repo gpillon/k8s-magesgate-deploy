@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: teamspeak3-pvc
+  name: teamspeak3-data
   namespace: teamspeak
   annotations:
     argocd.argoproj.io/sync-options: CreateOrUpdate
