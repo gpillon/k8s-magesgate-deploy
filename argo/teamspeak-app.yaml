@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: teamspeak
-  namespace: argo
+  namespace: argocd
 spec:
   destination:
     namespace: teamspeak
