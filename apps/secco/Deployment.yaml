@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secco-web
+  namespace: secco
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: secco
+  template:
+    metadata:
+      labels:
+        app: secco
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
