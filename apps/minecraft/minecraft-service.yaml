@@ -5,7 +5,7 @@ metadata:
   namespace: minecraft
 spec:
   type: LoadBalancer
-  ports: 8123 
+  ports:  
   - port: 25565
     targetPort: 25565
     protocol: TCP
