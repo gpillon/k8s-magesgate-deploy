@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: teamspeak
+    namespace: minecraft
     server: https://kubernetes.default.svc
   project: default
   source:
