@@ -4,3 +4,4 @@ resources:
 - minecraft-deployment.yaml
 - minecraft-service.yaml
 - minecraft-pvc.yaml
+- minecraft-namespace.yaml
