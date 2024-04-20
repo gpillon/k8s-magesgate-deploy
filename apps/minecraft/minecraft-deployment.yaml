@@ -20,7 +20,7 @@ spec:
         - name: EULA
           value: "TRUE"
         - name: TYPE
-          value: "PUFFERFISH"
+          value: "PAPER"
         - name: SPIGET_RESOURCES
           value: 274,19254,19362
         ports:
