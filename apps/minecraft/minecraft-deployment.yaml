@@ -20,7 +20,9 @@ spec:
         - name: EULA
           value: "TRUE"
         - name: TYPE
-          value: "PAPER"
+          value: "PUFFERFISH"
+        - name: SPIGET_RESOURCES
+          value: 274,19254,19362
         ports:
         - containerPort: 25565
           hostPort: 25565
