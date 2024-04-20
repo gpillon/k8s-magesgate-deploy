@@ -5,3 +5,4 @@ resources:
 - minecraft-service.yaml
 - minecraft-pvc.yaml
 - minecraft-namespace.yaml
+- minecraft-ingress.yaml
