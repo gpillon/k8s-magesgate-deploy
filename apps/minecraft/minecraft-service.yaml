@@ -5,9 +5,13 @@ metadata:
   namespace: minecraft
 spec:
   type: LoadBalancer
-  ports:
+  ports: 8123 
   - port: 25565
     targetPort: 25565
+    protocol: TCP
+  - port: 8123
+    name: web-map
+    targetPort: 8123
     protocol: TCP
   selector:
     app: minecraft-server
