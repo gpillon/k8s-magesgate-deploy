@@ -25,6 +25,10 @@ spec:
           value: 19254,19362
         - name: MAX_MEMORY
           value: 4G
+        - name: SERVER_NAME
+          value: Magesgate.com
+        - name: MOTD
+          value: Where the magic Begins 
         ports:
         - containerPort: 25565
           hostPort: 25565
