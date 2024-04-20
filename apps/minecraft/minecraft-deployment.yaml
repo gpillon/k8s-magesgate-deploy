@@ -33,3 +33,5 @@ spec:
           claimName: minecraft-pvc
       nodeSelector:
         kubernetes.io/arch: arm64
+  strategy:
+    type: Recreate
