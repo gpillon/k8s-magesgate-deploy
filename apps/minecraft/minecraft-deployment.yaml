@@ -24,13 +24,6 @@ spec:
         ports:
         - containerPort: 25565
           hostPort: 25565
-        resources:
-          limits:
-            memory: "4Gi"
-            cpu: "1000m"
-          requests:
-            memory: "2Gi"
-            cpu: "500m"
         volumeMounts:
         - name: minecraft-data
           mountPath: /data
