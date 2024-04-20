@@ -9,6 +9,7 @@ spec:
   - port: 25565
     targetPort: 25565
     protocol: TCP
+    name: minecraft-game
   - port: 8123
     name: web-map
     targetPort: 8123
