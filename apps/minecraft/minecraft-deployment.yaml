@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: minecraft
-        image: itzg/minecraft-server:multiarch-latest
+        image: docker.io/itzg/minecraft-server:multiarch-latest
         env:
         - name: EULA
           value: "TRUE"
