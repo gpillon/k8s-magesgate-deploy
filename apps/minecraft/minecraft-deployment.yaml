@@ -20,9 +20,9 @@ spec:
         - name: EULA
           value: "TRUE"
         - name: TYPE
-          value: "PAPER"
-        - name: SPIGET_RESOURCES
-          value: 19254,19362
+          value: "FTBA"
+        - name: FTB_MODPACK_ID
+          value: 119
         - name: MAX_MEMORY
           value: 4G
         - name: SERVER_NAME
