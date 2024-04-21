@@ -24,7 +24,7 @@ spec:
         - name: TYPE
           value: "PAPER"
         - name: SPIGET_RESOURCES
-          value: 19254,19362
+          value: 19254,19362,75164
         - name: MAX_MEMORY
           value: 5G
         - name: SERVER_NAME
