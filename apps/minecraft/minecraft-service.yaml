@@ -3,9 +3,6 @@ kind: Service
 metadata:
   name: minecraft-service
   namespace: minecraft
-  annotations:
-   prometheus.io/port: "9940"
-   prometheus.io/scrape: "true"
 spec:
   type: LoadBalancer
   ports:  
@@ -13,10 +10,6 @@ spec:
     targetPort: 25565
     protocol: TCP
     name: minecraft-game
-  - port: 9940
-    name: metrics
-    targetPort: 9940
-    protocol: TCP
   - port: 8123
     name: web-map
     targetPort: 8123
