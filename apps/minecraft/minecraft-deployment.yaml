@@ -22,7 +22,7 @@ spec:
         - name: TYPE
           value: "FTBA"
         - name: FTB_MODPACK_ID
-          value: 119
+          value: "119"
         - name: MAX_MEMORY
           value: 4G
         - name: SERVER_NAME
