@@ -6,3 +6,4 @@ resources:
 - minecraft-pvc.yaml
 - minecraft-namespace.yaml
 - minecraft-ingress.yaml
+- minecraft-service-metrics.yaml
