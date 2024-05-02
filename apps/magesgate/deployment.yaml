@@ -25,7 +25,7 @@ spec:
         volumeMounts:
         - name: web-content
           mountPath: "/repo"
-        command: ['sh', '-c', 'rm -rf /repo && git clone -b gh-pages https://github.com/kalik1/magesgate.com.git /repo']
+        command: ['sh', '-c', 'rm -rf /repo/* && 'rm -rf /repo/.* && git clone -b gh-pages https://github.com/kalik1/magesgate.com.git /repo']
       containers:
       - name: nginx
         image: nginx:alpine
