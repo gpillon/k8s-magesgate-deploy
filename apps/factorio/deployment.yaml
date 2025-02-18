@@ -20,7 +20,7 @@ spec:
             claimName: factorio-saves
       containers:
         - name: factorio
-          image: factoriotools/factorio:1.1.104
+          image: factoriotools/factorio:2.0.34
           ports:
             - name: game
               hostPort: 34197
