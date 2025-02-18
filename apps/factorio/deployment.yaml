@@ -14,10 +14,29 @@ spec:
       labels:
         app: factorio
     spec:
+      initContainers:
+      - name: copy-config
+        image: busybox
+        command:
+          - sh
+          - -c
+          - |
+            # Crea la cartella di destinazione (se non esiste) e copia il file
+            mkdir -p /config && cp /secret/server-settings.json /config/server-settings.json && chown -R 1000:1000 /config
+        volumeMounts:
+          - name: secret-config
+            mountPath: /secret
+          - name: config
+            mountPath: /config
       volumes:
         - name: save-data
           persistentVolumeClaim:
             claimName: factorio-saves
+        - name: secret-config
+          secret:
+            secretName: factorio-settings
+        - name: config
+          emptyDir: {}
       containers:
         - name: factorio
           image: factoriotools/factorio:2.0.34
@@ -33,6 +52,8 @@ spec:
           volumeMounts:
             - name: save-data
               mountPath: /factorio/
+          - name: config
+            mountPath: /factorio/config   
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
