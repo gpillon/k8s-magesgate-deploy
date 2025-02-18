@@ -22,7 +22,7 @@ spec:
           - -c
           - |
             # Crea la cartella di destinazione (se non esiste) e copia il file
-            mkdir -p /config && cp /secret/server-settings.json /config/server-settings.json && chown -R 1000:1000 /config
+            mkdir -p /config && cp /secret/server-settings.json /config/server-settings.json && chown -R 845:845 /config
         volumeMounts:
           - name: secret-config
             mountPath: /secret
