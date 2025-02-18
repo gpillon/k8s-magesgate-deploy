@@ -52,8 +52,8 @@ spec:
           volumeMounts:
             - name: save-data
               mountPath: /factorio/
-          - name: config
-            mountPath: /factorio/config   
+            - name: config
+              mountPath: /factorio/config   
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Always
