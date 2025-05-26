@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: minecraft-server
   namespace: minecraft
-  label:
-    ciao: a tutti
 spec:
   replicas: 1
   selector:
@@ -23,8 +21,8 @@ spec:
           value: "TRUE"
         - name: TYPE
           value: "PAPER"
-        - name: SPIGET_RESOURCES
-          value: 19254,19362,75164
+        - name: VERSION
+          value: "1.21.4"
         - name: MAX_MEMORY
           value: 5G
         - name: SERVER_NAME
