@@ -1,0 +1,267 @@
+# deploy/bitwarden/Application-bitwarden-helmrepo.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bitwarden
+  namespace: argocd
+spec:
+  project: default
+
+  # --------------------------------------------
+  # SORGENTE: chart proviene da un repository Helm esterno
+  # --------------------------------------------
+  source:
+    repoURL: "https://charts.bitwarden.com/"   # ←←← ecco il repo Helm ufficiale
+    chart: bitwarden-self-host                  # ←←← nome del chart (lo trovi in Chart.yaml remoto)
+    targetRevision: "latest"                    # ←←← specifica una versione (o "latest")
+    helm:
+      # Qui “dentro” metti TUTTO il contenuto del tuo values.yaml (override),
+      # SENZA segreti in chiaro, facendo copia&incolla.
+      values: |
+        general:
+          domain: "bitwarden.the.magesgate.com"
+          ingress:
+            enabled: true
+            className: "nginx"
+            annotations: {}
+            labels: {}
+            tls:
+              name: "bitwarden-tls"                # Se usi TLS automatizzato con cert-manager, metti qui il nome del secret
+              clusterIssuer: "letsencrypt-prod"
+            paths:
+              web:
+                path: /(.*)
+                pathType: ImplementationSpecific
+              attachments:
+                path: /attachments/(.*)
+                pathType: ImplementationSpecific
+              api:
+                path: /api/(.*)
+                pathType: ImplementationSpecific
+              icons:
+                path: /icons/(.*)
+                pathType: ImplementationSpecific
+              notifications:
+                path: /notifications/(.*)
+                pathType: ImplementationSpecific
+              events:
+                path: /events/(.*)
+                pathType: ImplementationSpecific
+              scim:
+                path: /scim/(.*)
+                pathType: ImplementationSpecific
+              sso:
+                path: /sso/(.*)
+                pathType: ImplementationSpecific
+              identity:
+                path: /identity/(.*)
+                pathType: ImplementationSpecific
+              admin:
+                path: /admin/(.*)
+                pathType: ImplementationSpecific
+
+          coreVersionOverride: ""
+          webVersionOverride: ""
+          disableUserRegistration: "false"
+          admins: "service@magesgate.com"  # inserisci qui gli admin (solo email, non password)
+          email:
+            replyToEmail: "no-reply@magesgate.com"
+            smtpHost: "smtp.magesgate.com"
+            smtpPort: "587"
+            smtpSsl: "true"
+            smtpTrustServer: "false"
+            smtpSslOverride: "false"
+            smtpStartTls: "false"
+          sso:
+            enforceSsoPolicyForAllUsers: false
+          labels: {}
+          volumeAccessMode: "ReadWriteMany"
+          enableCloudCommunication: false
+          cloudRegion: "US"
+
+        sharedStorageClassName: "nfs-client"
+
+        secrets:
+          secretName: "bitwarden-secret"
+
+        component:
+          admin:
+            image:
+              name: ghcr.io/bitwarden/admin
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "50m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            deploymentStrategy: RollingUpdate
+          api:
+            image:
+              name: ghcr.io/bitwarden/api
+            resources:
+              requests:
+                memory: "1Mi"
+                cpu: "1m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+            deploymentStrategy: RollingUpdate
+          attachments:
+            image:
+              name: ghcr.io/bitwarden/attachments
+            resources:
+              requests:
+                memory: "1Mi"
+                cpu: "1m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            deploymentStrategy: RollingUpdate
+          events:
+            image:
+              name: ghcr.io/bitwarden/events
+            resources:
+              requests:
+                memory: "1Mi"
+                cpu: "1m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            deploymentStrategy: RollingUpdate
+          icons:
+            image:
+              name: ghcr.io/bitwarden/icons
+            resources:
+              requests:
+                memory: "1Mi"
+                cpu: "1m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            deploymentStrategy: RollingUpdate
+          identity:
+            image:
+              name: ghcr.io/bitwarden/identity
+            resources:
+              requests:
+                memory: "1Mi"
+                cpu: "1m"
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+            deploymentStrategy: RollingUpdate
+          notifications:
+            image:
+              name: ghcr.io/bitwarden/notifications
+            resources:
+              requests:
+                memory: "61i"
+                cpu: "1m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            deploymentStrategy: RollingUpdate
+          scim:
+            enabled: false
+            image:
+              name: ghcr.io/bitwarden/scim
+            resources:
+              requests:
+                memory: "1Mi"
+                cpu: "1m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            deploymentStrategy: RollingUpdate
+          sso:
+            image:
+              name: ghcr.io/bitwarden/sso
+            resources:
+              requests:
+                memory: "1Mi"
+                cpu: "1m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            deploymentStrategy: RollingUpdate
+          web:
+            image:
+              name: ghcr.io/bitwarden/web
+            resources:
+              requests:
+                memory: "1Mi"
+                cpu: "1m"
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+            deploymentStrategy: RollingUpdate
+
+        supportComponents:
+          dbMigrator:
+            image:
+              name: ghcr.io/bitwarden/mssqlmigratorutility
+          certGenerator:
+            image:
+              name: docker.io/nginx
+              tag: 1.25.3
+          kubectl:
+            image:
+              name: bitnami/kubectl
+              tag: 1.21
+
+        volume:
+          dataprotection:
+            size: "1Gi"
+            labels: {}
+          attachments:
+            size: "1Gi"
+            labels: {}
+          licenses:
+            size: "1Gi"
+            labels: {}
+          logs:
+            enabled: false
+            size: "1Gi"
+            labels: {}
+          caCertificates:
+            enabled: false
+            configMapName: cacert
+
+        serviceAccount:
+          name: "bitwarden-sa"
+          deployRolesOnly: false
+
+        database:
+          enabled: true
+          image:
+            name: mcr.microsoft.com/mssql/server
+            tag: 2022-CU11-ubuntu-22.04
+          resources:
+            requests:
+              memory: 1Mi"
+              cpu: "1m"
+            limits:
+              memory: "2G"
+              cpu: "500m"
+          volume:
+            backups:
+              size: "1Gi"
+              labels: {}
+            data:
+              size: "10Gi"
+              labels: {}
+            log:
+              size: "10Gi"
+              labels: {}
+          updateStrategy: OnDelete
+  # --------------------------------------------
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: bitwarden
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
