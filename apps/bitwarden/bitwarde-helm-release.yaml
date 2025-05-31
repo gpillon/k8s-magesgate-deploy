@@ -115,7 +115,7 @@ spec:
               name: ghcr.io/bitwarden/notifications
             resources:
               requests:
-                memory: "61i"
+                memory: "6Mi"
                 cpu: "1m"
               limits:
                 memory: "128Mi"
@@ -181,7 +181,7 @@ spec:
             tag: 2022-CU11-ubuntu-22.04
           resources:
             requests:
-              memory: 1Mi"
+              memory: "1Mi"
               cpu: "1m"
             limits:
               memory: "2G"
