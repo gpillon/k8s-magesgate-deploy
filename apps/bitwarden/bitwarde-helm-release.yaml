@@ -11,9 +11,9 @@ spec:
   # SORGENTE: chart proviene da un repository Helm esterno
   # --------------------------------------------
   source:
-    repoURL: "https://charts.bitwarden.com/"   # ←←← ecco il repo Helm ufficiale
-    chart: bitwarden-self-host                  # ←←← nome del chart (lo trovi in Chart.yaml remoto)
-    targetRevision: "2025.5.0"                    # ←←← specifica una versione (o "latest")
+    repoURL: "https://charts.bitwarden.com/"
+    chart: self-host
+    targetRevision: "2025.5.1"
     helm:
       # Qui “dentro” metti TUTTO il contenuto del tuo values.yaml (override),
       # SENZA segreti in chiaro, facendo copia&incolla.
