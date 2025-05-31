@@ -28,42 +28,9 @@ spec:
             tls:
               name: "bitwarden-tls"                # Se usi TLS automatizzato con cert-manager, metti qui il nome del secret
               clusterIssuer: "letsencrypt-prod"
-            paths:
-              web:
-                path: /(.*)
-                pathType: ImplementationSpecific
-              attachments:
-                path: /attachments/(.*)
-                pathType: ImplementationSpecific
-              api:
-                path: /api/(.*)
-                pathType: ImplementationSpecific
-              icons:
-                path: /icons/(.*)
-                pathType: ImplementationSpecific
-              notifications:
-                path: /notifications/(.*)
-                pathType: ImplementationSpecific
-              events:
-                path: /events/(.*)
-                pathType: ImplementationSpecific
-              scim:
-                path: /scim/(.*)
-                pathType: ImplementationSpecific
-              sso:
-                path: /sso/(.*)
-                pathType: ImplementationSpecific
-              identity:
-                path: /identity/(.*)
-                pathType: ImplementationSpecific
-              admin:
-                path: /admin/(.*)
-                pathType: ImplementationSpecific
 
-          coreVersionOverride: ""
-          webVersionOverride: ""
           disableUserRegistration: "false"
-          admins: "service@magesgate.com"  # inserisci qui gli admin (solo email, non password)
+          admins: "service@magesgate.com"
           email:
             replyToEmail: "no-reply@magesgate.com"
             smtpHost: "smtp.magesgate.com"
@@ -72,26 +39,18 @@ spec:
             smtpTrustServer: "false"
             smtpSslOverride: "false"
             smtpStartTls: "false"
-          sso:
-            enforceSsoPolicyForAllUsers: false
-          labels: {}
           volumeAccessMode: "ReadWriteMany"
-          enableCloudCommunication: false
-          cloudRegion: "US"
-
         sharedStorageClassName: "nfs-client"
-
         secrets:
           secretName: "bitwarden-secret"
-
         component:
           admin:
             image:
               name: ghcr.io/bitwarden/admin
             resources:
               requests:
-                memory: "64Mi"
-                cpu: "50m"
+                memory: "1Mi"
+                cpu: "1m"
               limits:
                 memory: "128Mi"
                 cpu: "100m"
@@ -197,19 +156,6 @@ spec:
                 cpu: "100m"
             deploymentStrategy: RollingUpdate
 
-        supportComponents:
-          dbMigrator:
-            image:
-              name: ghcr.io/bitwarden/mssqlmigratorutility
-          certGenerator:
-            image:
-              name: docker.io/nginx
-              tag: 1.25.3
-          kubectl:
-            image:
-              name: bitnami/kubectl
-              tag: 1.21
-
         volume:
           dataprotection:
             size: "1Gi"
@@ -227,10 +173,6 @@ spec:
           caCertificates:
             enabled: false
             configMapName: cacert
-
-        serviceAccount:
-          name: "bitwarden-sa"
-          deployRolesOnly: false
 
         database:
           enabled: true
