@@ -32,6 +32,8 @@ spec:
         ports:
         - containerPort: 25565
           hostPort: 25565
+        - containerPort: 19132
+          hostPort: 19132
         volumeMounts:
         - name: minecraft-data
           mountPath: /data
